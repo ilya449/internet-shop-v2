@@ -1,14 +1,15 @@
-package com.internet.shop.dao.service;
+package com.internet.shop.dao.impl;
 
 import com.internet.shop.dao.ProductDao;
 import com.internet.shop.db.Storage;
+import com.internet.shop.lib.Dao;
 import com.internet.shop.model.Product;
-
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-public class ProductDaoService implements ProductDao {
+@Dao
+public class ProductDaoImpl implements ProductDao {
 
     public static final String EXCEPTION_MESSAGE = "Storage doesn't have product with id: %s";
 
@@ -32,12 +33,18 @@ public class ProductDaoService implements ProductDao {
 
     @Override
     public Product update(Product product) {
-        return null;
+        return Storage.getProducts().stream()
+                .filter(p -> p.getId().equals(product.getId()))
+                .map(p -> p = product)
+                .findFirst()
+                .orElseThrow(() ->
+                        new NoSuchElementException(String.format(EXCEPTION_MESSAGE,
+                                product.getId().toString())));
     }
 
     @Override
     public boolean delete(Long id) {
         return Storage.getProducts().remove(get(id).orElseThrow(() ->
-                new NoSuchElementException(String.format(EXCEPTION_MESSAGE,id.toString()))));
+                new NoSuchElementException(String.format(EXCEPTION_MESSAGE, id.toString()))));
     }
 }

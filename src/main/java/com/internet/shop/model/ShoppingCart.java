@@ -1,7 +1,7 @@
 package com.internet.shop.model;
 
-import lombok.Data;
 import java.util.List;
+import lombok.Data;
 
 @Data
 public class ShoppingCart {

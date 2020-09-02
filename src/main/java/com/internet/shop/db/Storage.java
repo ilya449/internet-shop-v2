@@ -1,12 +1,12 @@
 package com.internet.shop.db;
 
-import lombok.Getter;
 import com.internet.shop.model.Order;
 import com.internet.shop.model.Product;
 import com.internet.shop.model.ShoppingCart;
 import com.internet.shop.model.User;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Getter;
 
 public class Storage {
     private static Long orderId = 0L;
@@ -22,22 +22,22 @@ public class Storage {
     @Getter
     private static final List<User> users = new ArrayList<>();
 
-    public static void addOrder(Order order){
+    public static void addOrder(Order order) {
         order.setId(++orderId);
         orders.add(order);
     }
 
-    public static void addProduct(Product product){
+    public static void addProduct(Product product) {
         product.setId(++productId);
         products.add(product);
     }
 
-    public static void addShoppingCart(ShoppingCart shoppingCart){
+    public static void addShoppingCart(ShoppingCart shoppingCart) {
         shoppingCart.setId(++shoppingCartId);
         shoppingCarts.add(shoppingCart);
     }
 
-    public static void addUser(User user){
+    public static void addUser(User user) {
         user.setId(++userId);
         users.add(user);
     }
