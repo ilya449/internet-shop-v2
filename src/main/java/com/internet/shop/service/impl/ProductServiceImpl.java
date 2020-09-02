@@ -21,7 +21,8 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product get(Long id) {
         return productDao.get(id).orElseThrow(()
-                -> new NoSuchElementException(String.format("Can't find product by id: %s", id.toString())));
+                -> new NoSuchElementException(String
+                .format("Can't find product by id: %s", id.toString())));
     }
 
     @Override

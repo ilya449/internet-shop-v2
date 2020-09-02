@@ -30,20 +30,14 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public Product update(Product product) {
-        return Storage.getProducts().stream()
+        Storage.getProducts().stream()
                 .filter(p -> p.getId().equals(product.getId()))
-                .map(p -> p = product)
-                .findFirst()
-                .orElseThrow(() ->
-                        new NoSuchElementException(String
-                                .format("Storage doesn't have product with id: %s",
-                                        product.getId().toString())));
+                .forEach(p -> p = product);
+        return product;
     }
 
     @Override
     public boolean delete(Long id) {
-        return Storage.getProducts().remove(get(id).orElseThrow(() ->
-                new NoSuchElementException(String
-                        .format("Storage doesn't have product with id: %s", id.toString()))));
+        return Storage.getProducts().removeIf(p -> p.getId().equals(id));
     }
 }
