@@ -10,9 +10,6 @@ import java.util.Optional;
 
 @Dao
 public class ProductDaoImpl implements ProductDao {
-
-    public static final String EXCEPTION_MESSAGE = "Storage doesn't have product with id: %s";
-
     @Override
     public Product create(Product product) {
         Storage.addProduct(product);
@@ -38,13 +35,15 @@ public class ProductDaoImpl implements ProductDao {
                 .map(p -> p = product)
                 .findFirst()
                 .orElseThrow(() ->
-                        new NoSuchElementException(String.format(EXCEPTION_MESSAGE,
-                                product.getId().toString())));
+                        new NoSuchElementException(String
+                                .format("Storage doesn't have product with id: %s",
+                                        product.getId().toString())));
     }
 
     @Override
     public boolean delete(Long id) {
         return Storage.getProducts().remove(get(id).orElseThrow(() ->
-                new NoSuchElementException(String.format(EXCEPTION_MESSAGE, id.toString()))));
+                new NoSuchElementException(String
+                        .format("Storage doesn't have product with id: %s", id.toString()))));
     }
 }

@@ -21,14 +21,17 @@ public class Application {
         productService.create(mavic);
         productService.create(inspire);
 
-        System.out.println(productService.get(3L).toString());
-
+        System.out.println("All products:");
         productService.getAll()
                 .forEach(System.out::println);
 
-        mavicPlatinum.setPrice(39_999d);
-        System.out.println(productService.update(mavicPlatinum).toString());
+        System.out.println("Get product by id 3: " + productService.get(3L).toString());
 
+        mavicPlatinum.setPrice(39_999d);
+        System.out.println("Updated product: "
+                + productService.update(mavicPlatinum).toString());
+
+        System.out.println("Delete product by id 1");
         productService.delete(1L);
 
         productService.getAll()

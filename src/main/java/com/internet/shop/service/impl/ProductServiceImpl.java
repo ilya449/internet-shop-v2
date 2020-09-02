@@ -10,8 +10,6 @@ import java.util.NoSuchElementException;
 
 @Service
 public class ProductServiceImpl implements ProductService {
-    private static final String EXCEPTION_MESSAGE = "Can't find product by id: %s";
-
     @Inject
     private ProductDao productDao;
 
@@ -23,7 +21,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product get(Long id) {
         return productDao.get(id).orElseThrow(()
-                -> new NoSuchElementException(String.format(EXCEPTION_MESSAGE, id.toString())));
+                -> new NoSuchElementException(String.format("Can't find product by id: %s", id.toString())));
     }
 
     @Override
