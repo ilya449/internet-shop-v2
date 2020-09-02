@@ -1,1 +1,1 @@
-<# project-test> 
+Fruit shop project
