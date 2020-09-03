@@ -31,10 +31,8 @@ public class ProductDaoImpl implements ProductDao {
     public Product update(Product product) {
         Storage.getProducts().stream()
                 .filter(p -> p.getId().equals(product.getId()))
-                .forEach(p -> {
-                    p.setName(product.getName());
-                    p.setPrice(product.getPrice());
-                });
+                .forEach(p -> Storage.getProducts()
+                        .set(Storage.getProducts().indexOf(p), product));
         return product;
     }
 

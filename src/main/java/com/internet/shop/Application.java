@@ -39,7 +39,6 @@ public class Application {
         System.out.println("Products after update:\n" + productService.get(2L)
                 + "\n" + productService.get(3L));
 
-        System.out.println("Product after update:" + productService.get(2L));
         System.out.println("Delete product by id 1");
         productService.delete(1L);
 
