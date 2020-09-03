@@ -13,11 +13,13 @@ public class Application {
 
         Product phantom = new Product("DJI Phantom 4 PRO", 49_470d);
         Product mavicPlatinum = new Product("DJI Mavic PRO Platinum", 42_710d);
+        Product mavicPlatinum2 = new Product("DJI Mavic PRO Platinum2", 46_600d);
         Product mavic = new Product("DJI Mavic 2 PRO", 50_720d);
         Product inspire = new Product("DJI Inspire 2", 142_760d);
 
         productService.create(phantom);
         productService.create(mavicPlatinum);
+        productService.create(mavicPlatinum2);
         productService.create(mavic);
         productService.create(inspire);
 
@@ -27,10 +29,17 @@ public class Application {
 
         System.out.println("Get product by id 3: " + productService.get(3L).toString());
 
+        System.out.println("Products before update:\n" + productService.get(2L)
+                + "\n" + productService.get(3L));
         mavicPlatinum.setPrice(39_999d);
-        System.out.println("Updated product: "
-                + productService.update(mavicPlatinum).toString());
+        mavicPlatinum2 = new Product("DJI Mavic PRO Platinum2", 42_999d);
+        mavicPlatinum2.setId(3L);
+        productService.update(mavicPlatinum);
+        productService.update(mavicPlatinum2);
+        System.out.println("Products after update:\n" + productService.get(2L)
+                + "\n" + productService.get(3L));
 
+        System.out.println("Product after update:" + productService.get(2L));
         System.out.println("Delete product by id 1");
         productService.delete(1L);
 
