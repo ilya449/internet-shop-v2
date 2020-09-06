@@ -11,7 +11,6 @@ import java.util.stream.IntStream;
 
 @Service
 public class ShoppingCartServiceImpl implements ShoppingCartService {
-
     @Inject
     private ShoppingCartDao shoppingCartDao;
 
