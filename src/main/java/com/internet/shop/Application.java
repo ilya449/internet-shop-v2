@@ -11,6 +11,10 @@ public class Application {
         ProductService productService = (ProductService) injector
                 .getInstance(ProductService.class);
 
+        testProductServiceAndDao(productService);
+    }
+
+    private static void testProductServiceAndDao(ProductService productService) {
         Product phantom = new Product("DJI Phantom 4 PRO", 49_470d);
         Product mavicPlatinum = new Product("DJI Mavic PRO Platinum", 42_710d);
         Product mavicPlatinum2 = new Product("DJI Mavic PRO Platinum2", 46_600d);
