@@ -35,12 +35,12 @@ public class Application {
                                          ProductService productService,
                                          ShoppingCartService shoppingCartService) {
         System.out.println("Testing OrderService============================================");
-        ShoppingCart aliceShoppingCart = new ShoppingCart(1L,new ArrayList<>());
-        ShoppingCart bobShoppingCart = new ShoppingCart(2L,new ArrayList<>());
-        Product iPhoneX = new Product("Iphone X",14_999D);
+        Product iphoneX = new Product("Iphone X", 14_999D);
         Product gblCharge3 = new Product("GBL Charge 3", 3_799D);
-        productService.create(iPhoneX);
+        productService.create(iphoneX);
         productService.create(gblCharge3);
+        ShoppingCart aliceShoppingCart = new ShoppingCart(1L, new ArrayList<>());
+        ShoppingCart bobShoppingCart = new ShoppingCart(2L, new ArrayList<>());
         shoppingCartService.addProduct(aliceShoppingCart, productService.get(5L));
         shoppingCartService.addProduct(aliceShoppingCart, productService.get(6L));
         shoppingCartService.addProduct(bobShoppingCart, productService.get(5L));
@@ -67,17 +67,17 @@ public class Application {
     private static void testShoppingCartService(ShoppingCartService shoppingCartService,
                                                 ProductService productService) {
         System.out.println("Testing ShoppingCartService===================================");
-        ShoppingCart aliceShoppingCart = new ShoppingCart(1L,new ArrayList<>());
-        ShoppingCart bobShoppingCart = new ShoppingCart(2L,new ArrayList<>());
+        ShoppingCart aliceShoppingCart = new ShoppingCart(1L, new ArrayList<>());
+        ShoppingCart bobShoppingCart = new ShoppingCart(2L, new ArrayList<>());
         shoppingCartService.create(aliceShoppingCart);
         shoppingCartService.create(bobShoppingCart);
-        Product iPhoneX = new Product("Iphone X",14_999D);
+        Product iphoneX = new Product("Iphone X", 14_999D);
         Product gblCharge3 = new Product("GBL Charge 3", 3_799D);
-        productService.create(iPhoneX);
+        productService.create(iphoneX);
         productService.create(gblCharge3);
 
         shoppingCartService.addProduct(aliceShoppingCart,
-                productService.get(iPhoneX.getId()));
+                productService.get(iphoneX.getId()));
         shoppingCartService.addProduct(aliceShoppingCart,
                 productService.get(gblCharge3.getId()));
 
@@ -86,7 +86,7 @@ public class Application {
                 .forEach(System.out::println);
 
         System.out.println("Shopping cart after deleting iPhone X:");
-        shoppingCartService.deleteProduct(aliceShoppingCart, iPhoneX);
+        shoppingCartService.deleteProduct(aliceShoppingCart, iphoneX);
         shoppingCartService.getByUserId(aliceShoppingCart.getUserId()).getProducts()
                 .forEach(System.out::println);
 
