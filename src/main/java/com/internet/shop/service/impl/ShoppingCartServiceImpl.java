@@ -31,7 +31,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                 .noneMatch(p -> p.getId().equals(product.getId()))) {
             return false;
         }
-        IntStream.range(0, shoppingCart.getProducts().size())
+        IntStream.range(0, shoppingCart.getProducts().size()-1)
                 .filter(i -> shoppingCart.getProducts().get(i).getId()
                         .equals(product.getId()))
                 .forEach(i -> shoppingCart.getProducts().remove(i));
