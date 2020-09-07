@@ -1,7 +1,6 @@
 package com.internet.shop;
 
 import com.internet.shop.lib.Injector;
-import com.internet.shop.model.Order;
 import com.internet.shop.model.Product;
 import com.internet.shop.model.ShoppingCart;
 import com.internet.shop.model.User;
@@ -9,10 +8,7 @@ import com.internet.shop.service.OrderService;
 import com.internet.shop.service.ProductService;
 import com.internet.shop.service.ShoppingCartService;
 import com.internet.shop.service.UserService;
-import com.internet.shop.service.impl.ProductServiceImpl;
-
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class Application {
     private static Injector injector = Injector.getInstance("com.internet.shop");
@@ -37,7 +33,7 @@ public class Application {
 
     private static void testOrderService(OrderService orderService,
                                          ProductService productService,
-                                         ShoppingCartService shoppingCartService){
+                                         ShoppingCartService shoppingCartService) {
         System.out.println("Testing OrderService============================================");
         ShoppingCart aliceShoppingCart = new ShoppingCart(1L,new ArrayList<>());
         ShoppingCart bobShoppingCart = new ShoppingCart(2L,new ArrayList<>());
@@ -69,7 +65,7 @@ public class Application {
     }
 
     private static void testShoppingCartService(ShoppingCartService shoppingCartService,
-                                                ProductService productService){
+                                                ProductService productService) {
         System.out.println("Testing ShoppingCartService===================================");
         ShoppingCart aliceShoppingCart = new ShoppingCart(1L,new ArrayList<>());
         ShoppingCart bobShoppingCart = new ShoppingCart(2L,new ArrayList<>());
@@ -100,7 +96,7 @@ public class Application {
         System.out.println("Shopping cart after clearing:");
         shoppingCartService.clear(aliceShoppingCart);
         if (shoppingCartService.getByUserId(aliceShoppingCart.getUserId())
-                .getProducts().isEmpty()){
+                .getProducts().isEmpty()) {
             System.out.println("Shopping car was successfully clear!");
         }
 
@@ -108,7 +104,7 @@ public class Application {
                 + shoppingCartService.delete(aliceShoppingCart));
     }
 
-    private static void testUserService(UserService userService){
+    private static void testUserService(UserService userService) {
         System.out.println("Testing UserService============================================");
         User userAlice = new User("Alice", "alice_328212", "AlicePass2211");
         User userBob = new User("Bob", "bob123", "BobPass111");
