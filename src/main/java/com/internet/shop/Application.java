@@ -11,6 +11,7 @@ import com.internet.shop.service.UserService;
 import java.util.ArrayList;
 
 public class Application {
+    private static final String LINE_SEPARATOR = "\n===============%s===============\n";
     private static Injector injector = Injector.getInstance("com.internet.shop");
 
     public static void main(String[] args) {
@@ -34,7 +35,7 @@ public class Application {
     private static void testOrderService(OrderService orderService,
                                          ProductService productService,
                                          ShoppingCartService shoppingCartService) {
-        System.out.println("Testing OrderService============================================");
+        System.out.printf(LINE_SEPARATOR, "Testing Order Service");
         Product iphoneX = new Product("Iphone X", 14_999D);
         Product gblCharge3 = new Product("GBL Charge 3", 3_799D);
         productService.create(iphoneX);
@@ -66,7 +67,7 @@ public class Application {
 
     private static void testShoppingCartService(ShoppingCartService shoppingCartService,
                                                 ProductService productService) {
-        System.out.println("Testing ShoppingCartService===================================");
+        System.out.printf(LINE_SEPARATOR, "Testing Shopping Cart Service");
         ShoppingCart aliceShoppingCart = new ShoppingCart(1L, new ArrayList<>());
         ShoppingCart bobShoppingCart = new ShoppingCart(2L, new ArrayList<>());
         shoppingCartService.create(aliceShoppingCart);
@@ -105,7 +106,7 @@ public class Application {
     }
 
     private static void testUserService(UserService userService) {
-        System.out.println("Testing UserService============================================");
+        System.out.printf(LINE_SEPARATOR, "Testing User Service");
         User userAlice = new User("Alice", "alice_328212", "AlicePass2211");
         User userBob = new User("Bob", "bob123", "BobPass111");
         User userDave = new User("Dave", "dave3459", "pass12321pass");
@@ -136,7 +137,7 @@ public class Application {
     }
 
     private static void testProductService(ProductService productService) {
-        System.out.println("Testing ProductService==========================================");
+        System.out.printf(LINE_SEPARATOR, "Testing Product Service");
         Product phantom = new Product("DJI Phantom 4 PRO", 49_470d);
         Product mavicPlatinum = new Product("DJI Mavic PRO Platinum", 42_710d);
         Product mavicPlatinum2 = new Product("DJI Mavic PRO Platinum2", 46_600d);

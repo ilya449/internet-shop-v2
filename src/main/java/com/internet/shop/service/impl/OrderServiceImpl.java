@@ -1,7 +1,6 @@
 package com.internet.shop.service.impl;
 
 import com.internet.shop.dao.OrderDao;
-import com.internet.shop.dao.ShoppingCartDao;
 import com.internet.shop.lib.Inject;
 import com.internet.shop.lib.Service;
 import com.internet.shop.model.Order;
@@ -10,14 +9,11 @@ import com.internet.shop.service.OrderService;
 import com.internet.shop.service.ShoppingCartService;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
 
 @Service
 public class OrderServiceImpl implements OrderService {
     @Inject
     private OrderDao orderDao;
-    @Inject
-    private ShoppingCartDao shoppingCartDao;
     @Inject
     private ShoppingCartService shoppingCartService;
 
@@ -26,15 +22,12 @@ public class OrderServiceImpl implements OrderService {
         Order order = new Order(shoppingCart.getUserId(),
                 List.copyOf(shoppingCart.getProducts()));
         shoppingCartService.clear(shoppingCart);
-        shoppingCartDao.update(shoppingCart);
         return orderDao.create(order);
     }
 
     @Override
     public List<Order> getUserOrders(Long userId) {
-        return orderDao.getAll().stream()
-                .filter(o -> o.getUserId().equals(userId))
-                .collect(Collectors.toList());
+        return orderDao.getUserOrders(userId);
     }
 
     @Override

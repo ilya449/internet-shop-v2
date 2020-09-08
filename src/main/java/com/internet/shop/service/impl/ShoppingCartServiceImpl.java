@@ -7,7 +7,6 @@ import com.internet.shop.model.Product;
 import com.internet.shop.model.ShoppingCart;
 import com.internet.shop.service.ShoppingCartService;
 import java.util.NoSuchElementException;
-import java.util.stream.IntStream;
 
 @Service
 public class ShoppingCartServiceImpl implements ShoppingCartService {
@@ -27,16 +26,11 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public boolean deleteProduct(ShoppingCart shoppingCart, Product product) {
-        if (shoppingCart.getProducts().stream()
-                .noneMatch(p -> p.getId().equals(product.getId()))) {
-            return false;
+        if (shoppingCart.getProducts().remove(product)) {
+            shoppingCartDao.update(shoppingCart);
+            return true;
         }
-        IntStream.range(0, shoppingCart.getProducts().size() - 1)
-                .filter(i -> shoppingCart.getProducts().get(i).getId()
-                        .equals(product.getId()))
-                .forEach(i -> shoppingCart.getProducts().remove(i));
-        shoppingCartDao.update(shoppingCart);
-        return true;
+        return false;
     }
 
     @Override
@@ -47,9 +41,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public ShoppingCart getByUserId(Long userId) {
-        return shoppingCartDao.getAll().stream()
-                .filter(cart -> cart.getUserId().equals(userId))
-                .findFirst()
+        return shoppingCartDao.getByUserId(userId)
                 .orElseThrow(() -> new NoSuchElementException(String
                         .format("There is no shopping carts for user with id:%d", userId)));
     }
