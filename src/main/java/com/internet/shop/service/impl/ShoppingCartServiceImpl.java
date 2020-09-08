@@ -6,6 +6,8 @@ import com.internet.shop.lib.Service;
 import com.internet.shop.model.Product;
 import com.internet.shop.model.ShoppingCart;
 import com.internet.shop.service.ShoppingCartService;
+
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -49,5 +51,22 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Override
     public boolean delete(ShoppingCart shoppingCart) {
         return shoppingCartDao.delete(shoppingCart.getId());
+    }
+
+    @Override
+    public ShoppingCart get(Long id) {
+        return shoppingCartDao.get(id)
+                .orElseThrow(() -> new NoSuchElementException(String
+                        .format("There is no shopping carts with id:%d", id)));
+    }
+
+    @Override
+    public List<ShoppingCart> getAll() {
+        return shoppingCartDao.getAll();
+    }
+
+    @Override
+    public boolean delete(Long id) {
+        return shoppingCartDao.delete(id);
     }
 }
