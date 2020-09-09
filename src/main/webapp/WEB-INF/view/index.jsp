@@ -5,8 +5,10 @@
   </head>
   <body>
   <h1>Internet shop project</h1>
-  <a href="${pageContext.request.contextPath}/injectData">Inject test data</a>
+  <a href="${pageContext.request.contextPath}/injectData">Inject test users data</a>
   <br/>
   <a href="${pageContext.request.contextPath}/user/all">Show all users</a>
+  <br/>
+  <a href="${pageContext.request.contextPath}/user/registration">Register</a>
   </body>
 </html>

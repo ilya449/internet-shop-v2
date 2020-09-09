@@ -5,10 +5,12 @@ import com.internet.shop.model.User;
 import com.internet.shop.service.UserService;
 import java.io.IOException;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@WebServlet("/injectData")
 public class InjectDataController extends HttpServlet {
     private static final Injector injector = Injector.getInstance("com.internet.shop");
     private UserService userService = (UserService) injector.getInstance(UserService.class);
@@ -25,6 +27,6 @@ public class InjectDataController extends HttpServlet {
         userService.create(userDave);
         userService.create(userCharlie);
 
-        req.getRequestDispatcher("/WEB-INF/view/injectData.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/view/user/injectData.jsp").forward(req, resp);
     }
 }
