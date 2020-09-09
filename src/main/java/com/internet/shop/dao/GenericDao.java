@@ -10,7 +10,7 @@ public interface GenericDao<T, K> {
 
     List<T> getAll();
 
-    T update(T product);
+    T update(T item);
 
     boolean delete(K id);
 }
