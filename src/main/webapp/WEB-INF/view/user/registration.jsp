@@ -7,9 +7,7 @@
 <h1>Registration:</h1>
 <h3 style="color: red">${message}</h3>
 <form method="post" action="${pageContext.request.contextPath}/user/registration">
-    Input your name<label>
-    <input type="text" name="name">
-</label>
+    Input your name<input type="text" name="name">
     <br/>
     Input your login<input type="text" name="login">
     <br/>
