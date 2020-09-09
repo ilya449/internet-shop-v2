@@ -12,5 +12,7 @@
   <a href="${pageContext.request.contextPath}/user/registration">Register</a>
   <br/>
   <a href="${pageContext.request.contextPath}/product/all">Show products list</a>
+  <br/>
+  <a href="${pageContext.request.contextPath}/shopping-cart/products">Show products in shopping cart</a>
   </body>
 </html>
