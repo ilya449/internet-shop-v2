@@ -27,12 +27,15 @@ public class AddProductController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         String name = req.getParameter("name");
-        Double price = Double.parseDouble(req.getParameter("price"));
-
-        Product newProduct = new Product(name, price);
-        productService.create(newProduct);
-        req.setAttribute("message", String.format("Product %s was added!",
-                newProduct.getName()));
+        String price = req.getParameter("price");
+        if (name.length() > 0 && price.length() > 0) {
+            Product newProduct = new Product(name, Double.parseDouble(price));
+            productService.create(newProduct);
+            req.setAttribute("message", String.format("Product %s was added!",
+                    newProduct.getName()));
+        } else {
+            req.setAttribute("invalidDataMessage", "Fill all fields correctly!");
+        }
         req.getRequestDispatcher("/WEB-INF/view/product/addition.jsp")
                 .forward(req, resp);
     }

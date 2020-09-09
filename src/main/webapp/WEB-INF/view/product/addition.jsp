@@ -6,6 +6,7 @@
 <body>
 <h1>Registration:</h1>
 <h3 style="color: green">${message}</h3>
+<h3 style="color: red">${invalidDataMessage}</h3>
 <form method="post" action="${pageContext.request.contextPath}/product/addition">
     Input product name<input type="text" name="name">
     <br/>
@@ -13,5 +14,6 @@
     <br/>
     <button type="submit">Add product</button>
 </form>
+<a href="${pageContext.request.contextPath}/">Go to the main page</a>
 </body>
 </html>

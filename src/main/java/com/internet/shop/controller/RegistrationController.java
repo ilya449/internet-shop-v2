@@ -1,9 +1,12 @@
 package com.internet.shop.controller;
 
 import com.internet.shop.lib.Injector;
+import com.internet.shop.model.ShoppingCart;
 import com.internet.shop.model.User;
+import com.internet.shop.service.ShoppingCartService;
 import com.internet.shop.service.UserService;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,6 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 public class RegistrationController extends HttpServlet {
     private static final Injector injector = Injector.getInstance("com.internet.shop");
     private UserService userService = (UserService) injector.getInstance(UserService.class);
+    private ShoppingCartService shoppingCartService = (ShoppingCartService) injector
+            .getInstance(ShoppingCartService.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -29,12 +34,14 @@ public class RegistrationController extends HttpServlet {
         String login = req.getParameter("login");
         String pass = req.getParameter("pass");
         String repeatedPass = req.getParameter("repeatedPass");
-        if (pass.equals(repeatedPass)) {
+        if (name.length() > 0 && login.length() > 0
+                && pass.length() > 0 && pass.equals(repeatedPass)) {
             User newUser = new User(name, login, pass);
             userService.create(newUser);
+            shoppingCartService.create(new ShoppingCart(newUser.getId(), new ArrayList<>()));
             resp.sendRedirect(req.getContextPath() + "/");
         } else {
-            req.setAttribute("message", "Your passwords aren't the same!");
+            req.setAttribute("message", "Fill all fields and make sure your passwords are same!");
             req.getRequestDispatcher("/WEB-INF/view/user/registration.jsp")
                     .forward(req, resp);
         }
