@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/injectData")
+@WebServlet("/data-inject")
 public class InjectDataController extends HttpServlet {
     private static final Long USER_ID = 1L;
     private static final Injector injector = Injector.getInstance("com.internet.shop");
@@ -46,8 +46,10 @@ public class InjectDataController extends HttpServlet {
         productService.create(mavicPlatinum);
         productService.create(inspire);
 
-        shoppingCartService.create(new ShoppingCart(USER_ID, new ArrayList<>()));
-
-        req.getRequestDispatcher("/WEB-INF/view/injectData.jsp").forward(req, resp);
+        shoppingCartService.create(new ShoppingCart(bob.getId(), new ArrayList<>()));
+        shoppingCartService.create(new ShoppingCart(alice.getId(), new ArrayList<>()));
+        shoppingCartService.create(new ShoppingCart(userDave.getId(), new ArrayList<>()));
+        shoppingCartService.create(new ShoppingCart(userCharlie.getId(), new ArrayList<>()));
+        req.getRequestDispatcher("/WEB-INF/view/data.jsp").forward(req, resp);
     }
 }

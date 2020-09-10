@@ -34,8 +34,8 @@ public class RegistrationController extends HttpServlet {
         String login = req.getParameter("login");
         String pass = req.getParameter("pass");
         String repeatedPass = req.getParameter("repeatedPass");
-        if (name.length() > 0 && login.length() > 0
-                && pass.length() > 0 && pass.equals(repeatedPass)) {
+        if (name.length() > 1 && login.length() > 3
+                && pass.length() > 5 && pass.equals(repeatedPass)) {
             User newUser = new User(name, login, pass);
             userService.create(newUser);
             shoppingCartService.create(new ShoppingCart(newUser.getId(), new ArrayList<>()));

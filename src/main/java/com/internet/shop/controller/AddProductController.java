@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/product/addition")
+@WebServlet("/product/add")
 public class AddProductController extends HttpServlet {
     private static final Injector injector = Injector.getInstance("com.internet.shop");
     private ProductService productService = (ProductService) injector
@@ -19,7 +19,7 @@ public class AddProductController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/view/product/addition.jsp")
+        req.getRequestDispatcher("/WEB-INF/view/product/add.jsp")
                 .forward(req, resp);
     }
 
@@ -36,7 +36,7 @@ public class AddProductController extends HttpServlet {
         } else {
             req.setAttribute("invalidDataMessage", "Fill all fields correctly!");
         }
-        req.getRequestDispatcher("/WEB-INF/view/product/addition.jsp")
+        req.getRequestDispatcher("/WEB-INF/view/product/add.jsp")
                 .forward(req, resp);
     }
 }
