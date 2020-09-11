@@ -22,7 +22,7 @@
         </div>
         <br/>
         <div class="form-group">
-            <label>Input your password<
+            <label>Input your password
                 <input type="password" name="pass" minlength="6" maxlength="16">
             </label>
         </div>

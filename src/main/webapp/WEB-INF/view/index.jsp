@@ -23,9 +23,10 @@
   <br/>
   <a class="btn-info btn-lg" href="${pageContext.request.contextPath}/product/all">Show products list</a>
   <br/>
-  <a class="btn-info btn-lg" href="${pageContext.request.contextPath}/product/add">Create new product</a>
-  <br/>
   <a class="btn-info btn-lg" href="${pageContext.request.contextPath}/shopping-cart/products">Show products in shopping cart</a>
+    <br/>
+    <br/>
+    <a class="btn-danger btn-lg" href="${pageContext.request.contextPath}/admin/main">For admins</a>
   </div>
   </body>
 </html>
