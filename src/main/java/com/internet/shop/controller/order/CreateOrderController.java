@@ -1,9 +1,8 @@
-package com.internet.shop.controller;
+package com.internet.shop.controller.order;
 
 import com.internet.shop.lib.Injector;
-import com.internet.shop.model.Product;
 import com.internet.shop.model.ShoppingCart;
-import com.internet.shop.service.ProductService;
+import com.internet.shop.service.OrderService;
 import com.internet.shop.service.ShoppingCartService;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -12,21 +11,28 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/shopping-cart/delete")
-public class DeleteProductFromShoppingCartController extends HttpServlet {
+@WebServlet("/order/create")
+public class CreateOrderController extends HttpServlet {
     private static final Long USER_ID = 1L;
     private static final Injector injector = Injector.getInstance("com.internet.shop");
     private ShoppingCartService shoppingCartService = (ShoppingCartService) injector
             .getInstance(ShoppingCartService.class);
-    private ProductService productService = (ProductService) injector
-            .getInstance(ProductService.class);
+    private OrderService orderService = (OrderService) injector
+            .getInstance(OrderService.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        Product product = productService.get(Long.parseLong(req.getParameter("id")));
+        req.getRequestDispatcher("/WEB-INF/view/index.jsp").forward(req, resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
         ShoppingCart shoppingCart = shoppingCartService.getByUserId(USER_ID);
-        shoppingCartService.deleteProduct(shoppingCart, product);
-        resp.sendRedirect(req.getContextPath() + "/shopping-cart/products");
+        if (shoppingCart.getProducts().size() > 0) {
+            orderService.completeOrder(shoppingCart);
+        }
+        resp.sendRedirect(req.getContextPath() + "/");
     }
 }

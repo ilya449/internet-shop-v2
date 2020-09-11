@@ -1,4 +1,4 @@
-package com.internet.shop.controller;
+package com.internet.shop.controller.order;
 
 import com.internet.shop.lib.Injector;
 import com.internet.shop.service.OrderService;
@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/user/orders")
-public class CurrentUserOrdersController extends HttpServlet {
+public class ShowCurrentUserOrdersController extends HttpServlet {
     private static final Long USER_ID = 1L;
     private static final Injector injector = Injector.getInstance("com.internet.shop");
     private OrderService orderService = (OrderService) injector

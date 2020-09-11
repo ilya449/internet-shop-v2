@@ -1,4 +1,4 @@
-package com.internet.shop.controller;
+package com.internet.shop.controller.product;
 
 import com.internet.shop.lib.Injector;
 import com.internet.shop.service.ProductService;
@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/admin/products")
-public class ActWithProducts extends HttpServlet {
+@WebServlet("/product/delete")
+public class DeleteProductController extends HttpServlet {
     private static final Injector injector = Injector.getInstance("com.internet.shop");
     private ProductService productService = (ProductService) injector
             .getInstance(ProductService.class);
@@ -18,7 +18,7 @@ public class ActWithProducts extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        req.setAttribute("products", productService.getAll());
-        req.getRequestDispatcher("/WEB-INF/view/admin/products.jsp").forward(req, resp);
+        productService.delete(Long.parseLong(req.getParameter("id")));
+        resp.sendRedirect(req.getContextPath() + "/admin/products");
     }
 }
