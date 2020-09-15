@@ -19,6 +19,8 @@
     <a class="btn-info btn-lg" href="${pageContext.request.contextPath}/admin/orders">Show all orders</a>
     <br/>
     <a class="btn-info btn-lg" href="${pageContext.request.contextPath}/admin/products">Create / Delete product</a>
+    <br/>
+    <a class="btn-success btn-lg" href="${pageContext.request.contextPath}/">Go to the main page</a>
 </div>
 </body>
 </body>
