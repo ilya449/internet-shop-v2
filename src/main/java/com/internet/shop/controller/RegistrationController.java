@@ -38,7 +38,9 @@ public class RegistrationController extends HttpServlet {
                 && pass.length() > 5 && pass.equals(repeatedPass)) {
             User newUser = new User(name, login, pass);
             userService.create(newUser);
-            shoppingCartService.create(new ShoppingCart(newUser.getId(), new ArrayList<>()));
+            Long newUserIdLong = newUser.getId();
+            shoppingCartService.create(new ShoppingCart(newUserIdLong, new ArrayList<>()));
+            req.getSession().setAttribute(LoginController.USER_ID, newUserIdLong);
             resp.sendRedirect(req.getContextPath() + "/");
         } else {
             req.setAttribute("message", "Fill all fields and make sure your passwords are same!");

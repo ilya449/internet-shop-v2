@@ -1,5 +1,6 @@
 package com.internet.shop.controller;
 
+import com.internet.shop.controller.user.LoginController;
 import com.internet.shop.lib.Injector;
 import com.internet.shop.model.Product;
 import com.internet.shop.model.ShoppingCart;
@@ -14,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/product/buy")
 public class BuyProductController extends HttpServlet {
-    private static final Long USER_ID = 1L;
     private static final Injector injector = Injector.getInstance("com.internet.shop");
     private ShoppingCartService shoppingCartService = (ShoppingCartService) injector
             .getInstance(ShoppingCartService.class);
@@ -24,9 +24,10 @@ public class BuyProductController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+        Long userIdLong = (Long) req.getSession().getAttribute(LoginController.USER_ID);
+        ShoppingCart shoppingCart = shoppingCartService.getByUserId(userIdLong);
         Long productId = Long.valueOf(req.getParameter("id"));
         Product product = productService.get(productId);
-        ShoppingCart shoppingCart = shoppingCartService.getByUserId(USER_ID);
         shoppingCartService.addProduct(shoppingCart, product);
 
         req.setAttribute("message", String

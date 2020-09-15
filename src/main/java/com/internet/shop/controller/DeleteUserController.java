@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/user/delete")
 public class DeleteUserController extends HttpServlet {
@@ -23,6 +24,11 @@ public class DeleteUserController extends HttpServlet {
         Long userId = Long.valueOf(req.getParameter("id"));
         shoppingCartService.delete(shoppingCartService.getByUserId(userId));
         userService.delete(userId);
+        HttpSession session = req.getSession();
+        if (userId.equals(session.getAttribute(LoginController.USER_ID))) {
+            session.setAttribute(LoginController.USER_ID, null);
+            resp.sendRedirect(req.getContextPath() + "/user/login");
+        }
         resp.sendRedirect(req.getContextPath() + "/user/all");
     }
 }

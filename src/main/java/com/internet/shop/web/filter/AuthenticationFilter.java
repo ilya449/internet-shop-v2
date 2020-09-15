@@ -1,5 +1,6 @@
 package com.internet.shop.web.filter;
 
+import com.internet.shop.controller.user.LoginController;
 import com.internet.shop.lib.Injector;
 import com.internet.shop.service.UserService;
 import java.io.IOException;
@@ -17,7 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 @WebFilter("/*")
 public class AuthenticationFilter implements Filter {
     private static final Injector injector = Injector.getInstance("com.internet.shop");
-    private static final String USER_ID = "userId";
     private final UserService userService = (UserService) injector
             .getInstance(UserService.class);
 
@@ -38,7 +38,7 @@ public class AuthenticationFilter implements Filter {
             return;
         }
 
-        Long userId = (Long) req.getSession().getAttribute(USER_ID);
+        Long userId = (Long) req.getSession().getAttribute(LoginController.USER_ID);
         if (userId == null) {
             resp.sendRedirect(req.getContextPath() + "/user/login");
             return;
