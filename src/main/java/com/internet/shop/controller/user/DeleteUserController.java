@@ -1,6 +1,5 @@
 package com.internet.shop.controller.user;
 
-import com.internet.shop.controller.user.LoginController;
 import com.internet.shop.lib.Injector;
 import com.internet.shop.service.ShoppingCartService;
 import com.internet.shop.service.UserService;
@@ -28,7 +27,7 @@ public class DeleteUserController extends HttpServlet {
         HttpSession session = req.getSession();
         if (userId.equals(session.getAttribute(LoginController.USER_ID))) {
             session.setAttribute(LoginController.USER_ID, null);
-            resp.sendRedirect(req.getContextPath() + "/user/login");
+            resp.sendRedirect(req.getContextPath() + "/user/registration");
         }
         resp.sendRedirect(req.getContextPath() + "/user/all");
     }
