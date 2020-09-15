@@ -1,5 +1,6 @@
 package com.internet.shop.controller;
 
+import com.internet.shop.controller.user.LoginController;
 import com.internet.shop.lib.Injector;
 import com.internet.shop.model.ShoppingCart;
 import com.internet.shop.model.User;
