@@ -23,13 +23,17 @@
                     <c:out value="${product.price}"/>
                 </td>
                 <td>
-                    <a class="btn-success btn-lg" href="${pageContext.request.contextPath}/product/buy?id=${product.id}">Buy</a>
+                    <a class="btn-danger btn-lg" href="${pageContext.request.contextPath}/product/delete?id=${product.id}">Delete</a>
                 </td>
             </tr>
         </c:forEach>
     </table>
     <br/>
-    <a class="btn-info btn-lg" href="${pageContext.request.contextPath}/">Go to the main page</a>
+    <div class="btn-group-vertical">
+        <a class="btn-info btn-lg" href="${pageContext.request.contextPath}/product/add">Create new product</a>
+        <br/>
+        <a class="btn-info btn-lg" href="${pageContext.request.contextPath}/">Go to the main page</a>
+    </div>
 </div>
 </body>
 </html>
