@@ -2,6 +2,7 @@ package com.internet.shop.controller;
 
 import com.internet.shop.lib.Injector;
 import com.internet.shop.model.Product;
+import com.internet.shop.model.Role;
 import com.internet.shop.model.ShoppingCart;
 import com.internet.shop.model.User;
 import com.internet.shop.service.ProductService;
@@ -9,6 +10,7 @@ import com.internet.shop.service.ShoppingCartService;
 import com.internet.shop.service.UserService;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,11 +29,15 @@ public class InjectDataController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        User bob = new User("Bob", "bob123", "passBob");
-        User alice = new User("Alice", "alice123", "passAlice");
-        User userDave = new User("Dave", "dave3459", "passDave");
-        User userCharlie = new User("Charlie", "charlie777", "passCharlie");
+        User bob = new User("Bob", "bob123", "passBob", Set.of(Role.of("USER")));
+        User mainAdmin = new User("mainAdmin", "admin123", "admin123",
+                Set.of(Role.of("ADMIN"), Role.of("USER")));
+        User alice = new User("Alice", "alice123", "passAlice", Set.of(Role.of("USER")));
+        User userDave = new User("Dave", "dave3459", "passDave", Set.of(Role.of("USER")));
+        User userCharlie = new User("Charlie", "charlie777", "passCharlie",
+                Set.of(Role.of("USER")));
         userService.create(bob);
+        userService.create(mainAdmin);
         userService.create(alice);
         userService.create(userDave);
         userService.create(userCharlie);
@@ -46,6 +52,7 @@ public class InjectDataController extends HttpServlet {
         productService.create(inspire);
 
         shoppingCartService.create(new ShoppingCart(bob.getId(), new ArrayList<>()));
+        shoppingCartService.create(new ShoppingCart(mainAdmin.getId(), new ArrayList<>()));
         shoppingCartService.create(new ShoppingCart(alice.getId(), new ArrayList<>()));
         shoppingCartService.create(new ShoppingCart(userDave.getId(), new ArrayList<>()));
         shoppingCartService.create(new ShoppingCart(userCharlie.getId(), new ArrayList<>()));
