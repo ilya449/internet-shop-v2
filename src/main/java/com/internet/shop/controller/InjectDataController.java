@@ -30,14 +30,13 @@ public class InjectDataController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         User bob = new User("Bob", "bob123", "passBob", Set.of(Role.of("USER")));
-        User mainAdmin = new User("mainAdmin", "admin123", "admin123",
-                Set.of(Role.of("ADMIN"), Role.of("USER")));
+        User admin = new User("admin", "admin123", "admin123", Set.of(Role.of("ADMIN")));
         User alice = new User("Alice", "alice123", "passAlice", Set.of(Role.of("USER")));
         User userDave = new User("Dave", "dave3459", "passDave", Set.of(Role.of("USER")));
         User userCharlie = new User("Charlie", "charlie777", "passCharlie",
                 Set.of(Role.of("USER")));
         userService.create(bob);
-        userService.create(mainAdmin);
+        userService.create(admin);
         userService.create(alice);
         userService.create(userDave);
         userService.create(userCharlie);
@@ -52,7 +51,6 @@ public class InjectDataController extends HttpServlet {
         productService.create(inspire);
 
         shoppingCartService.create(new ShoppingCart(bob.getId(), new ArrayList<>()));
-        shoppingCartService.create(new ShoppingCart(mainAdmin.getId(), new ArrayList<>()));
         shoppingCartService.create(new ShoppingCart(alice.getId(), new ArrayList<>()));
         shoppingCartService.create(new ShoppingCart(userDave.getId(), new ArrayList<>()));
         shoppingCartService.create(new ShoppingCart(userCharlie.getId(), new ArrayList<>()));

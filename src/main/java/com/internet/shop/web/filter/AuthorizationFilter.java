@@ -9,19 +9,15 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebFilter("/*")
 public class AuthorizationFilter implements Filter {
     private static final Injector injector = Injector.getInstance("com.internet.shop");
     private final UserService userService = (UserService) injector
@@ -65,13 +61,8 @@ public class AuthorizationFilter implements Filter {
             resp.sendRedirect(req.getContextPath() + "/user/login");
             return;
         }
-        User user;
-        try {
-            user = userService.get(userId);
-        } catch (NoSuchElementException e) {
-            resp.sendRedirect(req.getContextPath() + "/user/registration");
-            return;
-        }
+
+        User user = userService.get(userId);
 
         if (isAuthorized(user, protectedUrls.get(requestUrl))) {
             chain.doFilter(req, resp);
@@ -88,7 +79,6 @@ public class AuthorizationFilter implements Filter {
         return authorizedRoles.stream()
                 .anyMatch(r -> user.getRoles().stream()
                         .map(Role::getRoleName)
-                        .collect(Collectors.toList())
-                        .contains(r));
+                        .anyMatch(userRole -> userRole.equals(r)));
     }
 }
