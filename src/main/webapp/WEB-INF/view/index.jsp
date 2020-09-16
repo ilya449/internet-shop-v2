@@ -27,6 +27,8 @@
   <br/>
   <a class="btn-info btn-lg" href="${pageContext.request.contextPath}/user/orders">Show current user's orders</a>
   <br/>
+  <a class="btn-info btn-lg" href="${pageContext.request.contextPath}/user/logout">Register</a>
+  <br/>
   <br/>
   <a class="btn-danger btn-lg" href="${pageContext.request.contextPath}/admin/main">For admins</a>
 </div>

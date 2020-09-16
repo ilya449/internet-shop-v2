@@ -26,7 +26,7 @@ public class DeleteUserController extends HttpServlet {
         userService.delete(userId);
         HttpSession session = req.getSession();
         if (userId.equals(session.getAttribute(LoginController.USER_ID))) {
-            session.setAttribute(LoginController.USER_ID, null);
+            session.invalidate();
             resp.sendRedirect(req.getContextPath() + "/user/registration");
         }
         resp.sendRedirect(req.getContextPath() + "/user/all");
