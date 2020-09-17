@@ -1,12 +1,14 @@
 package com.internet.shop.controller.user;
 
 import com.internet.shop.lib.Injector;
+import com.internet.shop.model.Role;
 import com.internet.shop.model.ShoppingCart;
 import com.internet.shop.model.User;
 import com.internet.shop.service.ShoppingCartService;
 import com.internet.shop.service.UserService;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -36,7 +38,7 @@ public class RegistrationController extends HttpServlet {
         String repeatedPass = req.getParameter("repeatedPass");
         if (name.length() > 1 && login.length() > 3
                 && pass.length() > 5 && pass.equals(repeatedPass)) {
-            User newUser = new User(name, login, pass);
+            User newUser = new User(name, login, pass, Set.of(Role.of("USER")));
             userService.create(newUser);
             Long newUserIdLong = newUser.getId();
             shoppingCartService.create(new ShoppingCart(newUserIdLong, new ArrayList<>()));
