@@ -8,7 +8,8 @@ CREATE TABLE `internet_shop`.`products` (
   PRIMARY KEY (`product_id`),
   UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE);
 
-INSERT INTO `products` (`name`, `price`) VALUES ('DJI Phantom 4 PRO', '49470.00');
-INSERT INTO `products` (`name`, `price`) VALUES ('DJI Mavic 2 PR', '50720.00');
-INSERT INTO `products` (`name`, `price`) VALUES ('DJI Mavic PRO Platinum', '42710.00');
-INSERT INTO `products` (`name`, `price`) VALUES ('DJI Inspire 2', '142760.00');
+INSERT INTO `products` (`name`, `price`)
+VALUES ('DJI Phantom 4 PRO', '49470.00'),
+        ('DJI Mavic 2 PR', '50720.00'),
+        ('DJI Mavic PRO Platinum', '42710.00'),
+        ('DJI Inspire 2', '142760.00');
