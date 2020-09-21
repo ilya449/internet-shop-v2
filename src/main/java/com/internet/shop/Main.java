@@ -1,15 +1,17 @@
 package com.internet.shop;
 
 import com.internet.shop.dao.ProductDao;
-import com.internet.shop.dao.jdbc.ProductDaoJdbcImpl;
+import com.internet.shop.lib.Injector;
 import com.internet.shop.model.Product;
 import com.internet.shop.util.ConnectionUtil;
 import java.sql.Connection;
 import java.sql.SQLException;
 
 public class Main {
+    private static final Injector injector = Injector.getInstance("com.internet.shop");
+    private static ProductDao productDaoJdbc = (ProductDao) injector.getInstance(ProductDao.class);
+
     public static void main(String[] args) {
-        ProductDao productDaoJdbc = new ProductDaoJdbcImpl();
         Product phantom = new Product("DJI Phantom 4 PRO", 49_470d);
         Product mavic = new Product("DJI Mavic 2 PRO", 50_720d);
         Product mavicPlatinum = new Product("DJI Mavic PRO Platinum", 42_710d);
