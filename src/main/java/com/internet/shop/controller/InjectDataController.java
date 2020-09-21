@@ -1,11 +1,9 @@
 package com.internet.shop.controller;
 
 import com.internet.shop.lib.Injector;
-import com.internet.shop.model.Product;
 import com.internet.shop.model.Role;
 import com.internet.shop.model.ShoppingCart;
 import com.internet.shop.model.User;
-import com.internet.shop.service.ProductService;
 import com.internet.shop.service.ShoppingCartService;
 import com.internet.shop.service.UserService;
 import java.io.IOException;
@@ -21,8 +19,6 @@ import javax.servlet.http.HttpServletResponse;
 public class InjectDataController extends HttpServlet {
     private static final Injector injector = Injector.getInstance("com.internet.shop");
     private UserService userService = (UserService) injector.getInstance(UserService.class);
-    private ProductService productService = (ProductService) injector
-            .getInstance(ProductService.class);
     private ShoppingCartService shoppingCartService = (ShoppingCartService) injector
             .getInstance(ShoppingCartService.class);
 
@@ -40,15 +36,6 @@ public class InjectDataController extends HttpServlet {
         userService.create(alice);
         userService.create(userDave);
         userService.create(userCharlie);
-
-        Product phantom = new Product("DJI Phantom 4 PRO", 49_470d);
-        Product mavic = new Product("DJI Mavic 2 PRO", 50_720d);
-        Product mavicPlatinum = new Product("DJI Mavic PRO Platinum", 42_710d);
-        Product inspire = new Product("DJI Inspire 2", 142_760d);
-        productService.create(phantom);
-        productService.create(mavic);
-        productService.create(mavicPlatinum);
-        productService.create(inspire);
 
         shoppingCartService.create(new ShoppingCart(bob.getId(), new ArrayList<>()));
         shoppingCartService.create(new ShoppingCart(alice.getId(), new ArrayList<>()));
