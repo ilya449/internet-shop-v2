@@ -10,7 +10,6 @@ import java.sql.SQLException;
 public class Main {
     public static void main(String[] args) {
         ProductDao productDaoJdbc = new ProductDaoJdbcImpl();
-
         Product phantom = new Product("DJI Phantom 4 PRO", 49_470d);
         Product mavic = new Product("DJI Mavic 2 PRO", 50_720d);
         Product mavicPlatinum = new Product("DJI Mavic PRO Platinum", 42_710d);

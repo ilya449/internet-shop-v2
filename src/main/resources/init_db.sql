@@ -5,8 +5,7 @@ CREATE TABLE `internet_shop`.`products` (
   `name` VARCHAR(225) NOT NULL,
   `price` DOUBLE NOT NULL DEFAULT 0,
   `deleted` TINYINT(1) NULL DEFAULT 0,
-  PRIMARY KEY (`product_id`),
-  UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE);
+  PRIMARY KEY (`product_id`));
 
 INSERT INTO `products` (`name`, `price`)
 VALUES ('DJI Phantom 4 PRO', '49470.00'),
