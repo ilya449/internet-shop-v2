@@ -1,5 +1,7 @@
 CREATE SCHEMA `internet_shop` DEFAULT CHARACTER SET utf8 ;
 
+use `internet_shop`;
+
 CREATE TABLE `internet_shop`.`products` (
   `product_id` BIGINT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(225) NOT NULL,
@@ -16,8 +18,8 @@ VALUES ('DJI Phantom 4 PRO', '49470.00'),
 CREATE TABLE `internet_shop`.`roles` (
   `role_id` BIGINT(11) NOT NULL AUTO_INCREMENT,
   `role_name` VARCHAR(255) NOT NULL DEFAULT 'user',
-  PRIMARY KEY (`role_id`))
-  UNIQUE INDEX `role_name_UNIQUE` (`role_name` ASC) VISIBLE
+  PRIMARY KEY (`role_id`),
+  UNIQUE INDEX `role_name_UNIQUE` (`role_name` ASC) VISIBLE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
