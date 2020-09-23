@@ -18,6 +18,7 @@ VALUES ('DJI Phantom 4 PRO', '49470.00'),
 CREATE TABLE `internet_shop`.`roles` (
   `role_id` BIGINT(11) NOT NULL AUTO_INCREMENT,
   `role_name` VARCHAR(255) NOT NULL DEFAULT 'user',
+  `deleted` TINYINT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`role_id`),
   UNIQUE INDEX `role_name_UNIQUE` (`role_name` ASC) VISIBLE)
 ENGINE = InnoDB
@@ -38,7 +39,7 @@ CREATE TABLE `internet_shop`.`users_roles` (
   `user_id` BIGINT(11) NOT NULL,
   `role_id` BIGINT(11) NOT NULL,
   `deleted` TINYINT(1) NOT NULL DEFAULT 0,
-  INDEX `users_roles_isers.fk_idx` (`user_id` ASC) VISIBLE,
+  INDEX `users_roles_users.fk_idx` (`user_id` ASC) VISIBLE,
   INDEX `users_roles_roles.fk_idx` (`role_id` ASC) VISIBLE,
   CONSTRAINT `users_roles_users.fk`
     FOREIGN KEY (`user_id`)
@@ -71,13 +72,13 @@ CREATE TABLE `internet_shop`.`orders_products` (
   `order_id` BIGINT(11) NOT NULL,
   `product_id` BIGINT(11) NOT NULL,
   INDEX `orders_products_order_id.fk_idx` (`order_id` ASC) VISIBLE,
-  INDEX `prders_products_product_id.fk_idx` (`product_id` ASC) VISIBLE,
+  INDEX `orders_products_product_id.fk_idx` (`product_id` ASC) VISIBLE,
   CONSTRAINT `orders_products_order_id.fk`
     FOREIGN KEY (`order_id`)
     REFERENCES `internet_shop`.`orders` (`order_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `prders_products_product_id.fk`
+  CONSTRAINT `orders_products_product_id.fk`
     FOREIGN KEY (`product_id`)
     REFERENCES `internet_shop`.`products` (`product_id`)
     ON DELETE NO ACTION

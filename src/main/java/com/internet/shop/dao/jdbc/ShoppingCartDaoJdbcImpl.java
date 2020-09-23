@@ -56,8 +56,7 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                ShoppingCart cart = extractShoppingCart(resultSet);
-                shoppingCartList.add(cart);
+                shoppingCartList.add(extractShoppingCart(resultSet));
             }
         } catch (SQLException e) {
             throw new DataProcessingException("Can't extract users from DB", e);
