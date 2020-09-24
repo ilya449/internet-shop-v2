@@ -49,12 +49,12 @@ public class UserDaoJdbcImpl implements UserDao {
             ResultSet resultSet = statement.getGeneratedKeys();
             if (resultSet.next()) {
                 user.setId(resultSet.getLong(1));
-                addUserRoles(user.getId(), user.getRoles());
             }
-            return user;
         } catch (SQLException e) {
             throw new DataProcessingException("Can't add user " + user, e);
         }
+        addUserRoles(user.getId(), user.getRoles());
+        return user;
     }
 
     @Override
@@ -143,9 +143,9 @@ public class UserDaoJdbcImpl implements UserDao {
         return Optional.of(user);
     }
 
-    private User extractUser(ResultSet rs) throws SQLException {
-        return new User(rs.getLong("user_id"), rs.getString("name"),
-                rs.getString("login"), rs.getString("password"), new HashSet<>());
+    private User extractUser(ResultSet resultSet) throws SQLException {
+        return new User(resultSet.getLong("user_id"), resultSet.getString("name"),
+                resultSet.getString("login"), resultSet.getString("password"), new HashSet<>());
     }
 
     private void addUserRoles(Long id, Set<Role> roles) {
@@ -164,7 +164,7 @@ public class UserDaoJdbcImpl implements UserDao {
     }
 
     private Set<Role> getUserRoles(Long id) {
-        String query = "SELECT role_id, role_name FROM roles JOIN users_roles "
+        String query = "SELECT roles.role_id, role_name FROM roles JOIN users_roles "
                 + "ON users_roles.role_id = roles.role_id where user.user_id = ?";
         Set<Role> roleSet = new HashSet<>();
         try (Connection connection = ConnectionUtil.getConnection()) {

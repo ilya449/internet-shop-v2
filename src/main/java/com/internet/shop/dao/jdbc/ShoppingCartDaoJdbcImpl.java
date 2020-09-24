@@ -125,9 +125,9 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
         }
     }
 
-    private ShoppingCart extractShoppingCart(ResultSet rs) throws SQLException {
-        return new ShoppingCart(rs.getLong("cart_id"),
-                rs.getLong("user_id"), new ArrayList<>());
+    private ShoppingCart extractShoppingCart(ResultSet resultSet) throws SQLException {
+        return new ShoppingCart(resultSet.getLong("cart_id"),
+                resultSet.getLong("user_id"), new ArrayList<>());
     }
 
     private Optional<ShoppingCart> getShoppingCartWithProducts(ShoppingCart cart) {
@@ -139,7 +139,7 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
     }
 
     private List<Product> getProducts(Long cartId) {
-        String query = "SELECT product_id, name, price FROM products p JOIN "
+        String query = "SELECT p.product_id, name, price FROM products p JOIN "
                 + "shopping_carts_products cp ON p.product_id = cp.product_id "
                 + "where cp.cart_id = ?";
         List<Product> productList = new ArrayList<>();

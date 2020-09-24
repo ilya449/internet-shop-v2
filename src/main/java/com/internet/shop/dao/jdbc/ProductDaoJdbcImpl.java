@@ -96,10 +96,10 @@ public class ProductDaoJdbcImpl implements ProductDao {
         }
     }
 
-    private Product extractProduct(ResultSet rs) throws SQLException {
-        long productId = rs.getLong("product_id");
-        String name = rs.getString("name");
-        Double price = rs.getDouble("price");
+    private Product extractProduct(ResultSet resultSet) throws SQLException {
+        long productId = resultSet.getLong("product_id");
+        String name = resultSet.getString("name");
+        Double price = resultSet.getDouble("price");
         return new Product(productId, name, price);
     }
 }

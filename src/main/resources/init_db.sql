@@ -117,3 +117,6 @@ CREATE TABLE `internet_shop`.`shopping_carts_products` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
+
+INSERT INTO `internet_shop`.`roles` (`role_name`) VALUES ('USER');
+INSERT INTO `internet_shop`.`roles` (`role_name`) VALUES ('ADMIN');

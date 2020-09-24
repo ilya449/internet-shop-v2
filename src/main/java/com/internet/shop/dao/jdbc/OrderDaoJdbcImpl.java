@@ -140,13 +140,13 @@ public class OrderDaoJdbcImpl implements OrderDao {
         }
     }
 
-    private Order extractOrder(ResultSet rs) throws SQLException {
-        return new Order(rs.getLong("order_id"),
-                rs.getLong("user_id"), new ArrayList<>());
+    private Order extractOrder(ResultSet resultSet) throws SQLException {
+        return new Order(resultSet.getLong("order_id"),
+                resultSet.getLong("user_id"), new ArrayList<>());
     }
 
     private List<Product> getProducts(Long orderId) {
-        String query = "SELECT product_id, name, price FROM products p JOIN "
+        String query = "SELECT p.product_id, name, price FROM products p JOIN "
                 + "orders_products op ON p.product_id = op.product_id "
                 + "where op.order_id = ?";
         List<Product> productList = new ArrayList<>();
