@@ -54,6 +54,7 @@ public class UserDaoJdbcImpl implements UserDao {
             throw new DataProcessingException("Can't add user " + user, e);
         }
         addUserRoles(user.getId(), user.getRoles());
+        user.setRoles(getUserRoles(user.getId()));
         return user;
     }
 
@@ -96,7 +97,8 @@ public class UserDaoJdbcImpl implements UserDao {
 
     @Override
     public User update(User user) {
-        String query = "UPDATE users SET name = ?, login = ?, password = ? WHERE user_id = ?";
+        String query = "UPDATE users SET name = ?, login = ?, password = ? "
+                + "WHERE deleted = FALSE AND user_id = ?";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, user.getName());

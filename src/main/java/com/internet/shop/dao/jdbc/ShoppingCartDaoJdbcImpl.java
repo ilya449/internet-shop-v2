@@ -19,7 +19,7 @@ import java.util.Optional;
 public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
     @Override
     public Optional<ShoppingCart> getByUserId(Long userId) {
-        String query = "SELECT * FROM shopping_carts WHERE user_id = ?;";
+        String query = "SELECT * FROM shopping_carts WHERE deleted = FALSE AND user_id = ?;";
         return getShoppingCart(userId, query);
     }
 
@@ -44,7 +44,7 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
 
     @Override
     public Optional<ShoppingCart> get(Long id) {
-        String query = "SELECT * FROM shopping_carts WHERE cart_id = ?;";
+        String query = "SELECT * FROM shopping_carts WHERE deleted = FALSE AND cart_id = ?;";
         return getShoppingCart(id, query);
     }
 
@@ -69,6 +69,10 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
 
     @Override
     public ShoppingCart update(ShoppingCart shoppingCart) {
+        if (get(shoppingCart.getId()).isEmpty()) {
+            throw new DataProcessingException("Can't update deleted shopping cart"
+                    + " with ID: " + shoppingCart.getId());
+        }
         String query = "DELETE FROM shopping_carts_products WHERE cart_id = ?;";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);

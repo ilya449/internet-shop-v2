@@ -101,6 +101,9 @@ public class OrderDaoJdbcImpl implements OrderDao {
 
     @Override
     public Order update(Order order) {
+        if (get(order.getId()).isEmpty()) {
+            throw new DataProcessingException("Can't update, this order was deleted: " + order);
+        }
         String query = "DELETE FROM orders_products WHERE order_id = ?;";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
