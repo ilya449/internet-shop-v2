@@ -118,5 +118,8 @@ CREATE TABLE `internet_shop`.`shopping_carts_products` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
+ALTER TABLE `internet_shop`.`users`
+    ADD COLUMN `salt` VARBINARY(16) NOT NULL AFTER `password`;
+
 INSERT INTO `internet_shop`.`roles` (`role_name`) VALUES ('USER');
 INSERT INTO `internet_shop`.`roles` (`role_name`) VALUES ('ADMIN');

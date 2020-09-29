@@ -38,13 +38,14 @@ public class UserDaoJdbcImpl implements UserDao {
 
     @Override
     public User create(User user) {
-        String query = "INSERT INTO users (name, login, password) VALUES (?, ?, ?)";
+        String query = "INSERT INTO users (name, login, password, salt) VALUES (?, ?, ?, ?)";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query,
                     Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, user.getName());
             statement.setString(2, user.getLogin());
             statement.setString(3, user.getPassword());
+            statement.setBytes(4, user.getSalt());
             statement.executeUpdate();
             ResultSet resultSet = statement.getGeneratedKeys();
             if (resultSet.next()) {
@@ -60,7 +61,7 @@ public class UserDaoJdbcImpl implements UserDao {
 
     @Override
     public Optional<User> get(Long id) {
-        String query = "SELECT * FROM users WHERE deleted = FALSE AND id = ?";
+        String query = "SELECT * FROM users WHERE deleted = FALSE AND user_id = ?";
         User user = null;
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
@@ -97,14 +98,15 @@ public class UserDaoJdbcImpl implements UserDao {
 
     @Override
     public User update(User user) {
-        String query = "UPDATE users SET name = ?, login = ?, password = ? "
+        String query = "UPDATE users SET name = ?, login = ?, password = ?, salt = ? "
                 + "WHERE deleted = FALSE AND user_id = ?";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, user.getName());
             statement.setString(2, user.getLogin());
             statement.setString(3, user.getPassword());
-            statement.setLong(4, user.getId());
+            statement.setBytes(4, user.getSalt());
+            statement.setLong(5, user.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new DataProcessingException("Can't update user: " + user, e);
@@ -147,7 +149,8 @@ public class UserDaoJdbcImpl implements UserDao {
 
     private User extractUser(ResultSet resultSet) throws SQLException {
         return new User(resultSet.getLong("user_id"), resultSet.getString("name"),
-                resultSet.getString("login"), resultSet.getString("password"), new HashSet<>());
+                resultSet.getString("login"), resultSet.getString("password"),
+                resultSet.getBytes("salt"), new HashSet<>());
     }
 
     private void addUserRoles(Long id, Set<Role> roles) {
@@ -167,7 +170,7 @@ public class UserDaoJdbcImpl implements UserDao {
 
     private Set<Role> getUserRoles(Long id) {
         String query = "SELECT roles.role_id, role_name FROM roles JOIN users_roles "
-                + "ON users_roles.role_id = roles.role_id where user.user_id = ?";
+                + "ON users_roles.role_id = roles.role_id where users_roles.user_id = ?";
         Set<Role> roleSet = new HashSet<>();
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);

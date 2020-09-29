@@ -17,6 +17,7 @@ public class User {
     private String login;
     @NonNull
     private String password;
+    private byte[] salt;
     @NonNull
     private Set<Role> roles;
 }
