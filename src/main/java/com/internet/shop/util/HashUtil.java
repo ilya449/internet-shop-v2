@@ -1,6 +1,5 @@
 package com.internet.shop.util;
 
-import com.internet.shop.model.User;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -25,13 +24,8 @@ public class HashUtil {
                 hashedPassword.append(String.format("%02x", b));
             }
         } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException("Can't find algorithm " + ALGORITHM + e);
+            throw new RuntimeException("Can't find algorithm " + ALGORITHM, e);
         }
         return hashedPassword.toString();
-    }
-
-    public static boolean isPassValid(String password, User user) {
-        return hashPassword(password, user.getSalt())
-                .equals(user.getPassword());
     }
 }
